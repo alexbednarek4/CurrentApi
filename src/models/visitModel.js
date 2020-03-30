@@ -1,6 +1,6 @@
 // Create model for visit checkins
-const { mongoose } = require('mongoose');
-const { validator } = require('validator');
+const mongoose = require('mongoose');
+const validator = require('validator');
 
 /**
  * userId = user submitting location

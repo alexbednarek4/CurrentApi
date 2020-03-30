@@ -12,18 +12,14 @@ mongoose.connect(MONGODB_URL, {
   useFindAndModify: false,
 });
 app.use(express.json());
-// const { Visit } = require('./models/visitModel.js');
+const Visit = require('./models/visitModel.js');
 
-// app.post('/visit', async (req, res) => {
-//   const visit = new Visit(req.body);
-//   try {
-//     await visit.save();
-//     res.status(201).send(visit);
-//   } catch (error) {
-//     res.status(400).send();
-//   }
-// });
-
+app.post('/visit', (req, res) => {
+  console.log(req.body);
+  const visit = new Visit(req.body);
+  visit.save();
+  res.send(visit);
+});
 
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
