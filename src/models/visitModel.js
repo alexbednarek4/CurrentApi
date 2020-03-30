@@ -5,7 +5,7 @@ const validator = require('validator');
 /**
  * userId = user submitting location
  * name = location name
- * visitId = unique location indicator
+ * visitId = unique location indicator, mongo creates this
  */
 
 const Visit = mongoose.model('Visit', {
