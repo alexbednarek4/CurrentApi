@@ -1,9 +1,10 @@
 const express = require('express');
 const router = new express.Router();
 const Visit = require('../models/visitModel');
-router.get('/test', (req, res) => {
-  res.send('From visitRouter file');
-});
+// fuzzy search function via regex
+function escapeRegex(text) {
+    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+}; 
 
 router.post('/visit', async (req, res) => {
   try {
@@ -25,11 +26,14 @@ router.post('/visit', async (req, res) => {
  *  OR all visit instances without req.query
  */
 router.get('/visit', async (req, res) => {
+
   if (req.query.name) {
-    const visit = await Visit.find({ name: req.query.name }).sort({ _id: -1 }).limit(5);
+    const regex = new RegExp(escapeRegex(req.query.name), 'gi');
+    const visit = await Visit.find({ name: regex }).sort({ _id: -1 }).limit(5);
     res.json(visit);
   } else if (req.query.userId) {
-    const visits = await Visit.find({ userId: req.query.userId });
+    const regex = new RegExp(escapeRegex(req.query.userId), 'gi');
+    const visits = await Visit.find({ userId: regex });
     res.json(visits);
   } else {
     const visits = await Visit.find({});
