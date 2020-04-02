@@ -11,12 +11,12 @@ const validator = require('validator');
 const Visit = mongoose.model('Visit', {
   userId: {
     type: String,
-    require: true,
+    required: true,
     trim: true,
   },
   name: {
     type: String,
-    require: true,
+    required: true,
     trim: true,
   },
   visitId: {
